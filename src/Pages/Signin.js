@@ -33,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
 function Signin(){
     const classes = useStyles();
 
+    const handleSignIn = () =>{
+        console.log('testing')
+    }
+
     return(
         <>
             <Container component='main' maxWidth='xs'>
@@ -51,7 +55,7 @@ function Signin(){
 
                             <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember Me' />
 
-                            <Button variant='contained' className={classes.submit} fullWidth color='primary'>SIGN IN</Button>
+                            <Button variant='contained' onClick={handleSignIn} className={classes.submit} fullWidth color='primary'>SIGN IN</Button>
 
                             <Grid container>
                                 <Grid item xs='6'>
