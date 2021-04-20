@@ -1,6 +1,7 @@
 import './App.css';
 import Header from './Components/Header'
 import Signin from './Pages/Signin'
+import Signup from './Pages/Signup'
 import Landing from './Pages/Landing';
 import About from './Pages/About'
 import React from 'react'
@@ -19,6 +20,7 @@ class App extends React.Component{
       <Router>
         <Switch>
         <Route path='/signin' exact component={Signin}/>
+        <Route path='/signup' exact component={Signup}/>
         <div>
         <Header/>
 
