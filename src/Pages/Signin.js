@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Avatar from '@material-ui/core/Avatar'
@@ -33,8 +33,20 @@ const useStyles = makeStyles((theme) => ({
 function Signin(){
     const classes = useStyles();
 
-    const handleSignIn = () =>{
-        console.log('testing')
+    const [Account, setAccount] = useState({username:'', password:''})
+
+    const handleSignIn = (e) => {
+        e.preventDefault();    
+        var url = 'http://127.0.0.1:8000/api/login/'
+        fetch(url,{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            'body':JSON.stringify(Account)
+        })
+        .then(response => response.json())
+        .then(response => console.log(response))
     }
 
     return(
@@ -50,8 +62,8 @@ function Signin(){
                         </Typography>
                         
                         <form className={classes.form}>
-                            <TextField variant='outlined' fullWidth margin='normal' label='Email Address' name='email' required id='email' autoComplete='Email' autoFocus></TextField>
-                            <TextField variant='outlined' fullWidth margin='normal' label='Password' name='password' required id='password' type='password' autoComplete='current-password'></TextField> 
+                            <TextField variant='outlined' onChange={(e) => setAccount({...Account, username:e.target.value})} fullWidth margin='normal' label='Email Address' name='email' required id='email' autoComplete='Email' autoFocus></TextField>
+                            <TextField variant='outlined' onChange={(e) => setAccount({...Account, password:e.target.value})} fullWidth margin='normal' label='Password' name='password' required id='password' type='password' autoComplete='current-password'></TextField> 
 
                             <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember Me' />
 
