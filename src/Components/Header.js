@@ -12,8 +12,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import Button from '@material-ui/core/Button'
 
-import { NavLink, withRouter } from 'react-router-dom';
+import * as actions from '../store/actions/auth'
+import { connect } from 'react-redux'
+import { NavLink, withRouter, useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -86,8 +89,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = () =>{
+const Header = (props) =>{
   const classes = useStyles();
+  let history = useHistory();
 
   const [drawerOpen, setDrawerOpen] = useState(false)
 
@@ -95,27 +99,28 @@ const Header = () =>{
     setDrawerOpen(!drawerOpen)
   }
 
-  
+  console.log(props.isAuthenticated)
+  console.log(props)
+
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer}
-          >
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="open drawer" onClick={toggleDrawer}>
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Web App
+          <Typography className={classes.title} variant="h6">
+            E-Commerce
           </Typography>
+          {props.isAuthenticated ? (
+            <Button color='inherit' onClick={props.logout}>Logout</Button>):(
+              <Button color='inherit' onClick={() => history.push('/signin')}>Login</Button>
+            )
+            }
         </Toolbar>
-                
-        </AppBar>
+      </AppBar> 
+
 
         <Drawer onClose={toggleDrawer} open={drawerOpen}>
                 <List subheader={
@@ -138,4 +143,10 @@ const Header = () =>{
   );
 }
 
-export default withRouter(Header)
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(actions.logout())
+  }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(Header))

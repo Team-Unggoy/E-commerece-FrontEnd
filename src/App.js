@@ -1,10 +1,11 @@
-import './App.css';
+import React from 'react'
 import Header from './Components/Header'
 import Signin from './Pages/Signin'
 import Signup from './Pages/Signup'
 import Landing from './Pages/Landing';
 import About from './Pages/About'
-import React from 'react'
+import { connect } from 'react-redux'
+import * as actions from './store/actions/auth'
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 
@@ -13,18 +14,24 @@ class App extends React.Component{
     super(props)
   }
 
+  componentDidMount(){
+    this.props.onTryAutoSignup()
+  }
+  
+
   render(){
+
     return(
       <div className='App'>
       
       <Router>
         <Switch>
-        <Route path='/signin' exact component={Signin}/>
+        <Route path='/signin' exact render={(props) => <Signin {...this.props}/>}/>
         <Route path='/signup' exact component={Signup}/>
         <div>
-        <Header/>
+        <Header {...this.props}/>
 
-          <Route path='/'  exact component={Landing}/>
+          <Route path='/'  exact render={(props) => <Landing {...this.props}/>}/>
           <Route path='/about' exact component={About}/>
         </div>
         </Switch>
@@ -35,4 +42,18 @@ class App extends React.Component{
   }
 }
 
-export default App;
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.token !== null
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup : () => dispatch(actions.authCheckState())
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -9,6 +9,11 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Link from '@material-ui/core/Link'
 import { CssBaseline, FormControlLabel, makeStyles } from '@material-ui/core'
+import { useHistory } from "react-router-dom";
+
+
+import { connect } from 'react-redux'
+import * as actions from '../store/actions/auth'
 
 const useStyles = makeStyles((theme) => ({
     paper:{
@@ -30,24 +35,20 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Signin(){
+function Signin(props){
     const classes = useStyles();
+    let history = useHistory();
 
-    const [Account, setAccount] = useState({username:'', password:''})
+    const [username, setUserName] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleSignIn = (e) => {
         e.preventDefault();    
-        var url = 'http://127.0.0.1:8000/api/login/'
-        fetch(url,{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json',
-            },
-            'body':JSON.stringify(Account)
-        })
-        .then(response => response.json())
-        .then(response => console.log(response))
+        props.onAuth(username, password)
+        history.push('/')
     }
+
+    
 
     return(
         <>
@@ -58,23 +59,23 @@ function Signin(){
                             <LockTwoToneIcon/>
                         </Avatar>
                         <Typography component='h1' variant='h5'>
-                            Sign in
+                            Login
                         </Typography>
                         
                         <form className={classes.form}>
-                            <TextField variant='outlined' onChange={(e) => setAccount({...Account, username:e.target.value})} fullWidth margin='normal' label='Email Address' name='email' required id='email' autoComplete='Email' autoFocus></TextField>
-                            <TextField variant='outlined' onChange={(e) => setAccount({...Account, password:e.target.value})} fullWidth margin='normal' label='Password' name='password' required id='password' type='password' autoComplete='current-password'></TextField> 
+                            <TextField variant='outlined' onChange={(e) => setUserName(e.target.value)} fullWidth margin='normal' label='Email Address' name='email' required id='email' autoComplete='Email' autoFocus></TextField>
+                            <TextField variant='outlined' onChange={(e) => setPassword(e.target.value)} fullWidth margin='normal' label='Password' name='password' required id='password' type='password' autoComplete='current-password'></TextField> 
 
                             <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember Me' />
 
                             <Button variant='contained' onClick={handleSignIn} className={classes.submit} fullWidth color='primary'>SIGN IN</Button>
 
                             <Grid container>
-                                <Grid item xs='6'>
+                                <Grid item xs={6}>
                                     <Link href='#' variant='body2'>Forgot Password?</Link>
                                 </Grid>
-                                <Grid item xs='6'>
-                                    <Link href='/signup' variant='body2'>{"Don't have an account? Sign Up!"}</Link>
+                                <Grid item xs={6}>
+                                    <Link href='/signup' variant='body2'>{"Don't have an Credentials? Sign Up!"}</Link>
                                 </Grid>
                             </Grid>
                         </form>
@@ -85,4 +86,16 @@ function Signin(){
 
 }
 
-export default Signin
+const mapStateToProps = (state) =>{
+    return {
+        isAuthenticated: state.token !== null
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onAuth: (username, password) => dispatch(actions.authLogin(username, password))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signin)

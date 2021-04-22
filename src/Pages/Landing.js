@@ -1,7 +1,9 @@
 import React from 'react'
 
 
-function Landing() {
+function Landing(props) {
+
+    console.log(props.isAuthenticated)
     return (
         <div>
             Landing Page
