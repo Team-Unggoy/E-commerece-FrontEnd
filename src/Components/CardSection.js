@@ -32,31 +32,31 @@ let Cakes = [
   {
     item:'We bare bears cake',
     description:'This Cake is best for eating',
-    price: 100,
+    price: 200,
     image:cake
   },
   {
     item:'We bare bears cake',
     description:'This Cake is best for eating',
-    price: 100,
+    price: 300,
     image:cake
   },
   {
     item:'We bare bears cake',
     description:'This Cake is best for eating',
-    price: 100,
+    price: 400,
     image:cake
   },
   {
     item:'We bare bears cake',
     description:'This Cake is best for eating',
-    price: 100,
+    price: 500,
     image:cake
   },
   {
     item:'We bare bears cake',
     description:'This Cake is best for eating',
-    price: 100,
+    price: 600,
     image:cake
   },
 ]
@@ -65,47 +65,17 @@ let Cakes = [
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        maxWidth: 345,
-      },
-      media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-      },
-      expand: {
-        transform: 'rotate(0deg)',
-        marginLeft: 'auto',
-        transition: theme.transitions.create('transform', {
-          duration: theme.transitions.duration.shortest,
-        }),
-      },
-      expandOpen: {
-        transform: 'rotate(180deg)',
-      },
 
       background:{
         display:'flex',
-        justifyContent:'center',
-        backgroundRepeat: 'no-repeat',
-        position:'relative',
-        backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-        backgroundSize: 'cover',
-        backgroundPosition: 'cover',
         backgroundColor: '#b0b0b0',
     },
 
-      card: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-      },
-        cardGrid: {
-          paddingTop: theme.spacing(8),
-          paddingBottom: theme.spacing(8),
-        },
 
-      buttonForm:{
-        alignItems: 'center',
+      form:{
+      
+        display:'flex',
+        justifyContent:'center',
       }
 
       }));
@@ -117,20 +87,19 @@ function CardSection(){
     
 
     const settings = {
-      dots: true,
-      arrows: true,
+      dots:true,
       infinite: true,
-      speed: 500,
-      slidesToShow: 3,
-      slidesToScroll: 3,
-      nextArrow: <ArrowForwardIosIcon/>,
-      prevArrow: <ArrowBackIosIcon/>,
+      centerMode:true,
+      swipeToSlide: true,
+      className: "center",
+      centerPadding: "60px",
+      slidesToShow: 4,
     };
 
     return(
         <div className={classes.background}>
           <Container>
-            <Typography variant='h3' align='center' color='textPrimary' gutterButtom style={{fontFamily:'Raleway', margin:20}}>
+            <Typography variant='h3' color='textPrimary' gutterButtom style={{fontFamily:'Raleway', margin:20}}> 
               Cakies
             </Typography>
 
@@ -139,18 +108,22 @@ function CardSection(){
                   <CarouselCard item={item}/>
                 ))}
               </Slider>
-              
-              <div className={classes.buttonForm}>
-                  <Button variant='contained'>Check All Dainty Cakes</Button>
-              </div>
+
+              <br/>
+              <br/>
+              <br/>
+
+                  <div className={classes.form}>
+                    <Button variant='contained' color='primary' >View all Cakies</Button>
+                  </div>
           </Container>
+
         </div>
     )
 }
 
 
 function CarouselCard(props){
-  const classes = useStyles()
   return(
     <div >
       <Container>
@@ -160,6 +133,12 @@ function CarouselCard(props){
               <CardContent>
                 <Typography>
                   {props.item.item}
+                </Typography>
+                <Typography style={{color:'greenyellow'}}>
+                  {props.item.price}
+                </Typography>
+                <Typography variant='body2' component='p' color='textSecondary'>
+                  {props.item.description}
                 </Typography>
               </CardContent>
           </CardActionArea>
