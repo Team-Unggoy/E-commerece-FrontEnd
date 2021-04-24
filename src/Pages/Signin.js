@@ -8,6 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Link from '@material-ui/core/Link'
+import dainty_logo from '../Images/dainty_logo.jpg'
 import { CssBaseline, FormControlLabel, makeStyles } from '@material-ui/core'
 import { useHistory } from "react-router-dom";
 
@@ -55,9 +56,7 @@ function Signin(props){
             <Container component='main' maxWidth='xs'>
                 <CssBaseline/>
                     <div className={classes.paper}>   
-                        <Avatar className={classes.avatar}>
-                            <LockTwoToneIcon/>
-                        </Avatar>
+                        <Avatar src={dainty_logo} className={classes.avatar}/>
                         <Typography component='h1' variant='h5'>
                             Login
                         </Typography>

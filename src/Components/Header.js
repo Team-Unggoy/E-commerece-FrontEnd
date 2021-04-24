@@ -13,10 +13,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Button from '@material-ui/core/Button'
+import dainty_logo from '../Images/dainty_logo.jpg'
 
 import * as actions from '../store/actions/auth'
 import { connect } from 'react-redux'
 import { NavLink, withRouter, useHistory } from 'react-router-dom';
+import { Avatar } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
   },
   search: {
     position: 'relative',
@@ -111,7 +117,7 @@ const Header = (props) =>{
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6">
-            E-Commerce
+            <Avatar src={dainty_logo} className={classes.small}/>
           </Typography>
           {props.isAuthenticated ? (
             <Button color='inherit' onClick={props.logout}>Logout</Button>):(

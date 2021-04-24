@@ -1,12 +1,15 @@
 import React from 'react'
+import LandingSection from '../Components/LandingSection'
+import CardSection from '../Components/CardSection'
+
 
 
 function Landing(props) {
 
-    console.log(props.isAuthenticated)
     return (
         <div>
-            Landing Page
+            <LandingSection />
+            <CardSection/>
         </div>
     );
 }

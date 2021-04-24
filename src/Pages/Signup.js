@@ -7,6 +7,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import dainty_logo from '../Images/dainty_logo.jpg'
 
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone'
 
@@ -55,10 +56,7 @@ export default function Signup(){
             <Container component='main' maxWidth='xs'>
                 <CssBaseline/>
                     <div className={classes.paper}>
-                        <Avatar className={classes.avatar}>
-                            <LockTwoToneIcon/>
-                        </Avatar>
-
+                        <Avatar src={dainty_logo}/>
                         <Typography>
                             <h3>Sign Up</h3>
                         </Typography>
